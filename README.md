@@ -63,8 +63,9 @@ Make script executable
 Start extracting robust features for automatic speech recognition from noise signals
 > ./threadripper-octave.sh
 
+Ignore the warnings at the start
 Watch output for errors ("panic")
-(won't appear in dmesg, seem to be catched by Octave itself)
+(segfaults won't appear in dmesg, seem to be catched by Octave itself)
 
 
 
