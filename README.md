@@ -12,9 +12,13 @@ Create compressed ramdisk
 (you will still need lots of RAM! probably >16G)
 You can try to go without this step and just work on your disk
 > sudo mkdir -p /mnt/ramdisk
+
 > sudo modprobe zram num_devices=1
+
 > echo 64G | sudo tee /sys/block/zram0/disksize
+
 > mke2fs -q -m 0 -b 4096 -O sparse_super -L zram /dev/zram0
+
 > mount -o relatime,nosuid,umask=0000 /dev/zram0 /mnt/ramdisk/
 
 Change to ramdisk directory
@@ -22,6 +26,7 @@ Change to ramdisk directory
 
 Download source code from
 > https://gcc.gnu.org/mirrors.html
+
 E.g.,
 > wget ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-7.1.0/gcc-7.1.0.tar.bz2
 
@@ -44,6 +49,7 @@ Watch for errors
 
 To stop the scripts
 > killall buildloop.sh
+
 > killall make
 (or restart the machine)
 
