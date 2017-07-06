@@ -8,11 +8,16 @@ Build GCC (Version 7.1) in a loop and in parallel
 Install build-essential
 > sudo apt install build-essential
 
-Create ramdisk (you will need lots of RAM)
+Create compressed ramdisk
+(you will still need lots of RAM! probably >16G)
+You can try to go without this step and just work on your disk
 > sudo mkdir -p /mnt/ramdisk
-> sudo mount -t tmpfs -o size=28G tmpfs /mnt/ramdisk
+> sudo modprobe zram num_devices=1
+> echo 64G | sudo tee /sys/block/zram0/disksize
+> mke2fs -q -m 0 -b 4096 -O sparse_super -L zram /dev/zram0
+> mount -o relatime,nosuid,umask=0000 /dev/zram0 /mnt/ramdisk/
 
-Change to ramdisk
+Change to ramdisk directory
 > cd /mnt/ramdisk
 
 Download source code from
@@ -43,7 +48,7 @@ To stop the scripts
 (or restart the machine)
 
 
-## Octave (less effective) ##
+## Octave (much less effective) ##
 Extract features for robust automatic speech recognition from noise signals with Octave 
 
 Install GNU/Octave
