@@ -19,15 +19,18 @@ You can try to go without this step and just work on your disk
 
 > sudo mke2fs -q -m 0 -b 4096 -O sparse_super -L zram /dev/zram0
 
-> sudo mount -o relatime,nosuid,umask=0000 /dev/zram0 /mnt/ramdisk/
+> sudo mount -o relatime,nosuid,discard /dev/zram0 /mnt/ramdisk/
+
+> sudo mkdir -p /mnt/ramdisk/workdir
+
+> sudo chmod 777 /mnt/ramdisk/workdir 
 
 Change to ramdisk directory
-> cd /mnt/ramdisk
+> cd /mnt/ramdisk/workdir
 
-Download source code from
-> https://gcc.gnu.org/mirrors.html
-
+Download source code from https://gcc.gnu.org/mirrors.html
 E.g.,
+
 > wget ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-7.1.0/gcc-7.1.0.tar.bz2
 
 Extract source code
