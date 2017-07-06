@@ -17,9 +17,9 @@ You can try to go without this step and just work on your disk
 
 > echo 64G | sudo tee /sys/block/zram0/disksize
 
-> mke2fs -q -m 0 -b 4096 -O sparse_super -L zram /dev/zram0
+> sudo mke2fs -q -m 0 -b 4096 -O sparse_super -L zram /dev/zram0
 
-> mount -o relatime,nosuid,umask=0000 /dev/zram0 /mnt/ramdisk/
+> sudo mount -o relatime,nosuid,umask=0000 /dev/zram0 /mnt/ramdisk/
 
 Change to ramdisk directory
 > cd /mnt/ramdisk
