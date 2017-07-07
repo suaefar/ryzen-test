@@ -7,11 +7,13 @@ function error() {
 
 NAME="$1"
 CDIR="$PWD"
-WDIR=$(mktemp -d -p ./buildloop.d) || exit 1
-cd "$WDIR"
-${CDIR}/gcc-7.1.0/configure --disable-multilib &> configure.log || exit 1
+WDIR="${CDIR}/buildloop.d/${NAME}/"
 for ((I=0;1;I++)); do
-  echo $(date)" $NAME start $I" 
-  make -j 1 &> build.log || error "$NAME"
-  make clean &> clean.log || error "$NAME"
+  cd "${CDIR}" || exit 1
+  echo $(date)" ${NAME} start ${I}"
+  [ -e "${WDIR}" ] && rm -r "${WDIR}"
+  mkdir -p "${WDIR}" || exit 1
+  cd "${WDIR}" || exit 1
+  ${CDIR}/gcc-7.1.0/configure --disable-multilib &> configure.log || error "configure ${NAME}"
+  make -j 1 &> build.log || error "build ${NAME}"
 done
