@@ -44,6 +44,12 @@ Copy buildloop.sh and threadripper.sh to current folder
 Make them executable
 > chmod +x buildloop.sh threadripper.sh
 
+Make directory for temporary files
+> mkdir tmpdir
+
+Export it, so that it will be used
+> export TMPDIR="$PWD/tmpdir"
+
 Start building GCC (RIP)
 > ./threadripper-buildgcc.sh
 
