@@ -1,0 +1,116 @@
+marc@strider:~/ryzen-test$ ./kill-ryzen.sh 
+Install required packages
+[sudo] password for marc: 
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+build-essential is already the newest version (12.1ubuntu2).
+0 upgraded, 0 newly installed, 0 to remove and 29 not upgraded.
+Create compressed ramdisk (you need >16G(!) RAM)
+64G
+Download GCC sources
+--2017-07-12 13:31:33--  ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-7.1.0/gcc-7.1.0.tar.bz2
+           => 'gcc-7.1.0.tar.bz2'
+Resolving ftp.fu-berlin.de (ftp.fu-berlin.de)... 130.133.3.130
+Connecting to ftp.fu-berlin.de (ftp.fu-berlin.de)|130.133.3.130|:21... connected.
+Logging in as anonymous ... Logged in!
+==> SYST ... done.    ==> PWD ... done.
+==> TYPE I ... done.  ==> CWD (1) /unix/languages/gcc/releases/gcc-7.1.0 ... done.
+==> SIZE gcc-7.1.0.tar.bz2 ... 84303533
+==> PASV ... done.    ==> RETR gcc-7.1.0.tar.bz2 ... done.
+Length: 84303533 (80M) (unauthoritative)
+
+gcc-7.1.0.tar.bz2                 100%[==========================================================>]  80.40M  2.43MB/s    in 25s     
+
+2017-07-12 13:31:58 (3.18 MB/s) - 'gcc-7.1.0.tar.bz2' saved [84303533]
+
+Extract GCC sources
+Download prerequisites
+2017-07-12 13:32:16 URL: ftp://gcc.gnu.org/pub/gcc/infrastructure/gmp-6.1.0.tar.bz2 [2383840] -> "./gmp-6.1.0.tar.bz2" [1]
+2017-07-12 13:32:20 URL: ftp://gcc.gnu.org/pub/gcc/infrastructure/mpfr-3.1.4.tar.bz2 [1279284] -> "./mpfr-3.1.4.tar.bz2" [1]
+2017-07-12 13:32:25 URL: ftp://gcc.gnu.org/pub/gcc/infrastructure/mpc-1.0.3.tar.gz [669925] -> "./mpc-1.0.3.tar.gz" [1]
+2017-07-12 13:32:30 URL: ftp://gcc.gnu.org/pub/gcc/infrastructure/isl-0.16.1.tar.bz2 [1626446] -> "./isl-0.16.1.tar.bz2" [1]
+gmp-6.1.0.tar.bz2: OK
+mpfr-3.1.4.tar.bz2: OK
+mpc-1.0.3.tar.gz: OK
+isl-0.16.1.tar.bz2: OK
+All prerequisites downloaded successfully.
+cat /proc/cpuinfo | grep -i -E "(model name|microcode)"
+model name	: AMD Ryzen 7 1800X Eight-Core Processor
+microcode	: 0x8001126
+model name	: AMD Ryzen 7 1800X Eight-Core Processor
+microcode	: 0x8001126
+model name	: AMD Ryzen 7 1800X Eight-Core Processor
+microcode	: 0x8001126
+model name	: AMD Ryzen 7 1800X Eight-Core Processor
+microcode	: 0x8001126
+model name	: AMD Ryzen 7 1800X Eight-Core Processor
+microcode	: 0x8001126
+model name	: AMD Ryzen 7 1800X Eight-Core Processor
+microcode	: 0x8001126
+model name	: AMD Ryzen 7 1800X Eight-Core Processor
+microcode	: 0x8001126
+model name	: AMD Ryzen 7 1800X Eight-Core Processor
+microcode	: 0x8001126
+model name	: AMD Ryzen 7 1800X Eight-Core Processor
+microcode	: 0x8001126
+model name	: AMD Ryzen 7 1800X Eight-Core Processor
+microcode	: 0x8001126
+model name	: AMD Ryzen 7 1800X Eight-Core Processor
+microcode	: 0x8001126
+model name	: AMD Ryzen 7 1800X Eight-Core Processor
+microcode	: 0x8001126
+model name	: AMD Ryzen 7 1800X Eight-Core Processor
+microcode	: 0x8001126
+model name	: AMD Ryzen 7 1800X Eight-Core Processor
+microcode	: 0x8001126
+model name	: AMD Ryzen 7 1800X Eight-Core Processor
+microcode	: 0x8001126
+model name	: AMD Ryzen 7 1800X Eight-Core Processor
+microcode	: 0x8001126
+sudo dmidecode -t memory | grep -i -E "(rank|speed|part)" | grep -v -i unknown
+	Speed: 2133 MHz
+	Part Number: F4-3000C15-16GVR
+	Rank: 2
+	Configured Clock Speed: 1067 MHz
+	Speed: 2133 MHz
+	Part Number: F4-3000C15-16GVR
+	Rank: 2
+	Configured Clock Speed: 1067 MHz
+uname -a
+Linux strider 4.12.0-041200-generic #201707022031 SMP Mon Jul 3 00:32:52 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+cat /proc/sys/kernel/randomize_va_space
+2
+Using 16 parallel processes
+[KERN] -- Logs begin at Wed 2017-07-12 13:31:08 CEST. --
+[KERN] Jul 12 13:31:12 strider kernel: nf_conntrack version 0.5.0 (65536 buckets, 262144 max)
+[KERN] Jul 12 13:31:12 strider kernel: virbr0: port 1(virbr0-nic) entered blocking state
+[KERN] Jul 12 13:31:12 strider kernel: virbr0: port 1(virbr0-nic) entered listening state
+[KERN] Jul 12 13:31:12 strider kernel: virbr0: port 1(virbr0-nic) entered disabled state
+[KERN] Jul 12 13:31:13 strider kernel: igb 0000:26:00.0 enp38s0: igb: enp38s0 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
+[KERN] Jul 12 13:31:13 strider kernel: IPv6: ADDRCONF(NETDEV_CHANGE): enp38s0: link becomes ready
+[KERN] Jul 12 13:31:31 strider kernel: zram: Added device: zram0
+[KERN] Jul 12 13:31:31 strider kernel: zram0: detected capacity change from 0 to 68719476736
+[KERN] Jul 12 13:31:33 strider kernel: EXT4-fs (zram0): mounting ext2 file system using the ext4 subsystem
+[KERN] Jul 12 13:31:33 strider kernel: EXT4-fs (zram0): mounted filesystem without journal. Opts: discard
+[loop-0] Wed Jul 12 13:32:31 CEST 2017 start 0
+[loop-1] Wed Jul 12 13:32:32 CEST 2017 start 0
+[loop-2] Wed Jul 12 13:32:33 CEST 2017 start 0
+[loop-3] Wed Jul 12 13:32:34 CEST 2017 start 0
+[loop-4] Wed Jul 12 13:32:35 CEST 2017 start 0
+[loop-5] Wed Jul 12 13:32:36 CEST 2017 start 0
+[loop-6] Wed Jul 12 13:32:37 CEST 2017 start 0
+[loop-7] Wed Jul 12 13:32:38 CEST 2017 start 0
+[loop-8] Wed Jul 12 13:32:39 CEST 2017 start 0
+[loop-9] Wed Jul 12 13:32:40 CEST 2017 start 0
+[loop-10] Wed Jul 12 13:32:41 CEST 2017 start 0
+[loop-11] Wed Jul 12 13:32:42 CEST 2017 start 0
+[loop-12] Wed Jul 12 13:32:43 CEST 2017 start 0
+[loop-13] Wed Jul 12 13:32:44 CEST 2017 start 0
+[loop-14] Wed Jul 12 13:32:45 CEST 2017 start 0
+[loop-15] Wed Jul 12 13:32:46 CEST 2017 start 0
+[loop-15] Wed Jul 12 13:35:04 CEST 2017 build failed
+[loop-15] TIME TO FAIL: 153 s
+[KERN] Jul 12 13:35:04 strider kernel: show_signal_msg: 29 callbacks suppressed
+[KERN] Jul 12 13:35:04 strider kernel: bash[11568]: segfault at 60 ip 0000000000435d7e sp 00007fff8106ee00 error 6 in bash[400000+100000]
+

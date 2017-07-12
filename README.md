@@ -1,93 +1,37 @@
 # ryzen-test
-Tools to reproduce randomly crashing processes under load on AMD Ryzen processors on Ubuntu 17.04.
+Script to reproduce randomly crashing processes under load on AMD Ryzen processors on Ubuntu 17.04.
 
+# Try it
+Run
 
-## Build GCC (very effective) ##
-Build GCC (Version 7.1) in a loop and in parallel
+> ./kill-ryzen.sh
 
-Install build-essential
-> sudo apt install build-essential
+and watch teh output.
 
-Create compressed ramdisk
-(you will still need lots of RAM! probably >16G)
-You can try to go without this step and just work on your disk
-> sudo mkdir -p /mnt/ramdisk
+# Method
+This script will download GCC sources (version 7.1) and build GCC in parallel loops on a compressed ramdisk.
+Each loop requires several Gb of disk space (and here, RAM in this case).
+Building other software packages might work just as well; the script could be easily adapted.
 
-> sudo modprobe zram num_devices=1
+# Effect
+Processes related to the build will eventually crash (e.g., segfault).
+Processes unrelated to the build process might crash as well.
+An example output of the script where the first process crashed after 153 seconds can be found in "example-output.txt".
+There, the "last words" from the build process were (logged to "/mnt/ramdisk/workdir/buildloop.d/loop-*/build.log"):
+> Makefile:761: recipe for target 'get_patches.lo' failed
+> make[5]: *** [get_patches.lo] Segmentation fault (core dumped)
 
-> echo 64G | sudo tee /sys/block/zram0/disksize
+# Requirements
+To sucessfully finish one round of builds more than 16Gb of RAM are required because GCC is a large software package.
+However, very often, one of the parallel build fails long before 16Gb of RAM are actually used (in the example, e.g, at about 2.2Gb total RAM usage).
+You can try it, but it will fail if you run out of memory (should it if you have sufficient swap space?).
+The use of a compressed ramdisk can also be switched off by replacing "USE_RAMDISK=true" with "USE_RAMDISK=false", but seems to increase the "TIME TO FAIL".
+Alternatively, smaller software packages could be tried (suggestions welcome).
 
-> sudo mke2fs -q -m 0 -b 4096 -O sparse_super -L zram /dev/zram0
-
-> sudo mount -o relatime,nosuid,discard /dev/zram0 /mnt/ramdisk/
-
-> sudo mkdir -p /mnt/ramdisk/workdir
-
-> sudo chmod 777 /mnt/ramdisk/workdir 
-
-Change to ramdisk directory
-> cd /mnt/ramdisk/workdir
-
-Download source code from https://gcc.gnu.org/mirrors.html
-E.g.,
-
-> wget ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-7.1.0/gcc-7.1.0.tar.bz2
-
-Extract source code
-> tar xf gcc-7.1.0.tar.bz2
-
-Download required prerequisites (including parenthesis!)
-> (cd gcc-7.1.0/ && ./contrib/download_prerequisites)
-
-Copy buildloop.sh and threadripper.sh to current folder
-
-Make them executable
-> chmod +x buildloop.sh threadripper.sh
-
-Make directory for temporary files
-> mkdir tmpdir
-
-Export it, so that it will be used
-> export TMPDIR="$PWD/tmpdir"
-
-Start building GCC (RIP)
-> ./threadripper-buildgcc.sh
-
-Watch for errors
-> journalctl -kf
-
-To stop the scripts
-> killall buildloop.sh
-
-> killall make
-(or restart the machine)
-
-
-## Octave (much less effective) ##
-Extract features for robust automatic speech recognition from noise signals with Octave 
-
-Install GNU/Octave
-> sudo apt install octave liboctave-dev build-essential
-
-Install octave packages
-> echo "pkg install -forge -auto general control signal" | octave-cli -q
-
-Clone code repository
-> git clone https://github.com/m-r-s/reference-feature-extraction.git
-
-Copy generate_load.m and threadripper-octave.sh to current folder
-
-Make script executable
-> chmod +x threadripper-octave.sh
-
-Start extracting robust features for automatic speech recognition from noise signals
-> ./threadripper-octave.sh
-
-Ignore the warnings at the start
-Watch output for errors ("panic")
-(segfaults won't appear in dmesg, seem to be catched by Octave itself)
-
-
-
-
+# TODO
+Extend logs:
+* Temperatures
+* CPU usage
+* I/O wait
+* Memory usage
 
