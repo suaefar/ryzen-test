@@ -6,7 +6,7 @@ Run
 
 > ./kill-ryzen.sh
 
-and watch teh output.
+and watch the output.
 
 # Method
 This script will download GCC sources (version 7.1) and build GCC in parallel loops on a compressed ramdisk.
