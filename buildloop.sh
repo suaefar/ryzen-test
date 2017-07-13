@@ -11,7 +11,7 @@ WDIR="${CDIR}/buildloop.d/${NAME}/"
 for ((I=0;1;I++)); do
   cd "${CDIR}" || error "leave workdir"
   echo $(date)" start ${I}"
-  [ -e "${WDIR}" ] && rm -r "${WDIR}"
+  [ -e "${WDIR}" ] && rm -rf "${WDIR}"
   mkdir -p "${WDIR}" || error "create workdir"
   cd "${WDIR}" || error "change to workdir"
   ${CDIR}/gcc-7.1.0/configure --disable-multilib &> configure.log || error "configure"
