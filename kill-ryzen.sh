@@ -11,6 +11,8 @@ if PKGMGR1="$( which apt-get 2>/dev/null )"; then
  sudo "$PKGMGR1" install build-essential
 elif PKGMGR2="$( which pacman 2>/dev/null )"; then
  sudo "$PKGMGR2" -S base-devel
+elif PKGMGR3="$( which dnf 2>/dev/null )"; then
+ sudo "$PKGMGR3" install -y @development-tools
 else
  exit 1
 fi
