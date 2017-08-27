@@ -7,13 +7,7 @@ NPROC=$1
 [ -n "$NPROC" ] || NPROC=$(nproc)
 
 echo "Install required packages"
-if PKGMGR1="$( which apt-get 2>/dev/null )"; then
- sudo "$PKGMGR1" install build-essential
-elif PKGMGR2="$( which pacman 2>/dev/null )"; then
- sudo "$PKGMGR2" -S base-devel
-else
- exit 1
-fi
+sudo apt install build-essential || exit 1
 
 if $USE_RAMDISK; then
   echo "Create compressed ramdisk (you need >16G(!) RAM)"
