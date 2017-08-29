@@ -1,5 +1,5 @@
 # ryzen-test
-Script to reproduce randomly crashing processes under load on AMD Ryzen processors on Ubuntu 17.04.
+Script to reproduce randomly crashing processes under load on AMD Ryzen processors on _Ubuntu_ 17.04.
 
 # Try it
 Run
@@ -22,11 +22,20 @@ There, the "last words" from the build process were (logged to "/mnt/ramdisk/wor
 > make[5]: *** [get_patches.lo] Segmentation fault (core dumped)
 
 # Requirements
-To successfully finish one round of builds more than 16Gb of RAM are required because GCC is a large software package.
+To successfully finish a round of 16 builds more than 16Gb of RAM are required because GCC is a large software package.
 However, very often, one of the parallel build fails long before 16Gb of RAM are actually used (in the example, e.g, at about 2.2Gb total RAM usage).
 You can try it, but it will fail if you run out of memory (should it if you have sufficient swap space?).
 The use of a compressed ramdisk can also be switched off by replacing "USE_RAMDISK=true" with "USE_RAMDISK=false", but seems to increase the "TIME TO FAIL".
 Alternatively, smaller software packages could be tried (suggestions welcome).
+
+You can also try to run fewer loops but allow them to use more threads, e.g., 8 loops with 2 threads each.
+
+> ./kill-ryzen.sh 8 2
+
+However, with only 16Gb RAM, this configuration might still run out of memory.
+4 loops with 4 threads each is a save choice on machines with 16Gb RAM.
+
+> ./kill-ryzen.sh 4 4
 
 # TODO
 Extend logs:

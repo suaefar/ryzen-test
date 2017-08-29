@@ -3,14 +3,16 @@ export LANG=C
 
 USE_RAMDISK=true
 NPROC=$1
+TPROC=$2
 
 [ -n "$NPROC" ] || NPROC=$(nproc)
+[ -n "$TPROC" ] || TPROC=1
 
 echo "Install required packages"
 sudo apt install build-essential || exit 1
 
 if $USE_RAMDISK; then
-  echo "Create compressed ramdisk (you need >16G(!) RAM)"
+  echo "Create compressed ramdisk"
   sudo mkdir -p /mnt/ramdisk || exit 1
   sudo modprobe zram num_devices=1 || exit 1
   echo 64G | sudo tee /sys/block/zram0/disksize || exit 1
@@ -50,7 +52,7 @@ echo "Using ${NPROC} parallel processes"
 
 START=$(date +%s)
 for ((I=0;$I<$NPROC;I++)); do
-  (./buildloop.sh "loop-$I" || echo "TIME TO FAIL: $(($(date +%s)-${START})) s") | sed "s/^/\[loop-${I}\] /" &
+  (./buildloop.sh "loop-$I" "$TPROC" || echo "TIME TO FAIL: $(($(date +%s)-${START})) s") | sed "s/^/\[loop-${I}\] /" &
   sleep 1
 done
 
