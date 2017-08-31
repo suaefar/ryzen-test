@@ -2,14 +2,29 @@
 export LANG=C
 
 USE_RAMDISK=true
+CLEAN_ON_EXIT=false
 NPROC=$1
 TPROC=$2
 
 [ -n "$NPROC" ] || NPROC=$(nproc)
 [ -n "$TPROC" ] || TPROC=1
 
+cleanup() {
+  sudo rm -rf /mnt/ramdisk/*
+  sudo umount /mnt/ramdisk
+}
+if $CLEAN_ON_EXIT; then
+  trap "cleanup" SIGHUP SIGINT SIGTERM EXIT
+fi
+
 echo "Install required packages"
-sudo apt install build-essential || exit 1
+if which apt-get &>/dev/null; then
+ sudo apt-get install build-essential
+elif which dnf &>/dev/null; then
+ sudo dnf install -y @development-tools
+else
+ exit 1
+fi
 
 if $USE_RAMDISK; then
   echo "Create compressed ramdisk"
@@ -47,7 +62,10 @@ uname -a
 echo "cat /proc/sys/kernel/randomize_va_space"
 cat /proc/sys/kernel/randomize_va_space
 
-journalctl -kf | sed 's/^/[KERN] /' &
+# start journal process in different working directory
+pushd /
+  journalctl -kf | sed 's/^/[KERN] /' &
+popd
 echo "Using ${NPROC} parallel processes"
 
 START=$(date +%s)
