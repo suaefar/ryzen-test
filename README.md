@@ -37,6 +37,21 @@ However, with only 16Gb RAM, this configuration might still run out of memory.
 
 > ./kill-ryzen.sh 4 4
 
+# Update on my experience (suaefar)
+I wrote this script to reproducibly show that there was a severe problem with my early (adopted) Ryzen processor.
+First, I experienced segfaults (a few per day) while performing simulations with complex, partly undocumented code that probably only few care about [1,2].
+_Compiling_ the GNU _compiler_ collection (GCC) with the GCC seemed much more suitable to demonstrate the problem (ruling out bad code) and was already proposed in an AMD community thread [3] and elsewhere.
+Parallel builds with -j 1 seemed to even increase the load and probability to hit the problem, sometimes after only a few seconds.
+
+A few days ago, I got a replacement from AMD for my affected Ryzen R7 1700.
+It survived more than 24 accumulated hours (4*8h) of parallel GCC compilation without a single crashed process.
+At the time of writing, 90% of my simulations (about 22h of calculations, still running) were completed without any error.
+I have not experienced a single segfault until now (2017-09-08).
+
+[1] https://github.com/m-r-s/fade
+[2] https://github.com/HoerTech-gGmbH/openMHA
+[3] https://community.amd.com/thread/215773
+
 # TODO
 Extend logs:
 * Temperatures
