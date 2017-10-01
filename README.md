@@ -33,7 +33,7 @@ You can also try to run fewer loops but allow them to use more threads, e.g., 8 
 > ./kill-ryzen.sh 8 2
 
 However, with only 16Gb RAM, this configuration might still run out of memory.
-4 loops with 4 threads each is a save choice on machines with 16Gb RAM.
+4 loops with 4 threads each is a safe choice on machines with 16Gb RAM.
 
 > ./kill-ryzen.sh 4 4
 
