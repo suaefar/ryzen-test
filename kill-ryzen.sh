@@ -44,13 +44,13 @@ if $USE_RAMDISK; then
 fi
 
 echo "Download GCC sources"
-wget ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-7.1.0/gcc-7.1.0.tar.bz2 || exit 1
+wget ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-7.2.0/gcc-7.2.0.tar.xz || exit 1
 
 echo "Extract GCC sources"
-tar xf gcc-7.1.0.tar.bz2 || exit 1
+tar xf gcc-7.2.0.tar.xz || exit 1
 
 echo "Download prerequisites"
-(cd gcc-7.1.0/ && ./contrib/download_prerequisites)
+(cd gcc-7.2.0/ && ./contrib/download_prerequisites)
 
 [ -d 'buildloop.d' ] && rm -r 'buildloop.d'
 mkdir -p buildloop.d || exit 1
