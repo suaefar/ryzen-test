@@ -31,7 +31,7 @@ else
 fi
 
 if $USE_RAMDISK; then
-  #Create compressed ramdisk if it doesn't already exists
+  #Create compressed ramdisk if it doesn't already exist
   if mountpoint -q $MOUNTPOINT; then
     echo "RAMdisk already mounted on $MOUNTPOINT."
   else
