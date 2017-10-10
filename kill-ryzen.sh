@@ -39,7 +39,7 @@ if $USE_RAMDISK; then
   sudo chmod 777 /mnt/ramdisk/workdir || exit 1
   cp buildloop.sh /mnt/ramdisk/workdir/buildloop.sh || exit 1
   cd /mnt/ramdisk/workdir || exit 1
-  mkdir tmpdir || exit 1
+  mkdir -p tmpdir || exit 1
   export TMPDIR="$PWD/tmpdir"
 fi
 
