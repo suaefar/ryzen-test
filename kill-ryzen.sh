@@ -23,9 +23,10 @@ if which apt-get &>/dev/null; then
 elif which dnf &>/dev/null; then
   sudo dnf install -y @development-tools
 elif which pacman &>/dev/null; then
+  echo "You are using a rolling release distribution based on ArchLinux. You are on your own if things fail."
   sudo pacman -S --needed base-devel
 else
-  exit 1
+  echo "Your distribution is not officially supported. The script will continue but may fail if you don't have the required build tools. You are on your own if things fail."
 fi
 
 if $USE_RAMDISK; then
