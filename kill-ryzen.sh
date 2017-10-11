@@ -53,7 +53,7 @@ fi
 
 echo "Download GCC sources"
 DOWNLOAD_FILE=gcc-7.2.0.tar.xz
-wget -O="$DOWNLOAD_FILE" -c ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-7.2.0/$DOWNLOAD_FILE || exit 1
+wget -O "$DOWNLOAD_FILE" -c ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-7.2.0/$DOWNLOAD_FILE || exit 1
 
 echo "Extract GCC sources"
 tar xf $DOWNLOAD_FILE || exit 1
