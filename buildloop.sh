@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function error() {
-  echo $(date)" ${1} failed"
+  echo "$(date --iso-8601=s) ${1} failed"
   exit 1
 }
 
@@ -11,7 +11,7 @@ CDIR="$PWD"
 WDIR="${CDIR}/buildloop.d/${NAME}/"
 for ((I=0;1;I++)); do
   cd "${CDIR}" || error "leave workdir"
-  echo $(date)" start ${I}"
+  echo "$(date --iso-8601=s) start ${I}"
   [ -e "${WDIR}" ] && rm -rf "${WDIR}"
   mkdir -p "${WDIR}" || error "create workdir"
   cd "${WDIR}" || error "change to workdir"

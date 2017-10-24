@@ -75,7 +75,7 @@ cat /proc/sys/kernel/randomize_va_space
 
 # start journal process in different working directory
 pushd /
-  journalctl -kf | sed 's/^/[KERN] /' &
+  journalctl -kf -o short-iso | sed 's/^/[KERN] /' &
 popd
 echo "Using ${NPROC} parallel processes"
 
