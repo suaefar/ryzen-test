@@ -74,9 +74,9 @@ echo "cat /proc/sys/kernel/randomize_va_space"
 cat /proc/sys/kernel/randomize_va_space
 
 # start journal process in different working directory
-pushd /
+pushd / >/dev/null
   journalctl -kf -o short-iso | sed 's/^/[KERN] /' &
-popd
+popd >/dev/null
 echo "Using ${NPROC} parallel processes"
 
 START=$(date +%s)
