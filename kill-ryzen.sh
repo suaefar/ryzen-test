@@ -73,6 +73,9 @@ uname -a
 echo "cat /proc/sys/kernel/randomize_va_space"
 cat /proc/sys/kernel/randomize_va_space
 
+# Disable kernel message log rate limiting
+echo "0" | sudo tee /proc/sys/kernel/printk_ratelimit >/dev/null
+
 # start journal process in different working directory
 pushd / >/dev/null
   journalctl -kf -o short-iso | sed 's/^/[KERN] /' &
