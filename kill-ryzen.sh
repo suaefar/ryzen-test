@@ -80,6 +80,27 @@ echo "0" | sudo tee /proc/sys/kernel/printk_ratelimit >/dev/null
 pushd / >/dev/null
   journalctl -kf -o short-iso | sed 's/^/[KERN] /' &
 popd >/dev/null
+
+if type -p sensors >/dev/null && sensors -A | grep -q k10temp; then
+  # lm-sensors is installed, and we have a new enough kernel, so enable
+  # temperature output
+  #
+  # ryzen support in k10temp will likely be included in linux 4.15, and is
+  # available in linux-next right now.
+  #
+  # see:
+  # https://github.com/groeck/lm-sensors/issues/16#issuecomment-336640812
+  #
+  # Using linux-next:
+  # https://www.kernel.org/doc/man-pages/linux-next.html
+  #
+  # Building a linux-next kernel on ubuntu (you can skip setting LOCALVERSION):
+  # https://wiki.ubuntu.com/KernelTeam/GitKernelBuild
+  #
+  while true; do echo "[TEMP] $(date --iso-8601=s) $(sensors -A | grep -A1 k10temp | tail -n 1 | awk '{print $2}')"; sleep 10m; done &
+fi
+
+
 echo "Using ${NPROC} parallel processes"
 
 START=$(date +%s)
