@@ -51,17 +51,11 @@ Parallel builds with -j 1 seemed to even increase the load and probability to hi
 
 A few days ago, I got a replacement from AMD for my affected Ryzen R7 1700.
 It survived more than 24 accumulated hours (4*8h) of parallel GCC compilation without a single crashed process.
-At the time of writing, 90% of my simulations (about 22h of calculations, still running) were completed without any error.
-I have not experienced a single segfault until now (2017-09-08).
+My simulations (about 24h of calculations) were completed without any error.
+I have not experienced a single segfault until now (2017-10-31).
 
 [1] https://github.com/m-r-s/fade
+
 [2] https://github.com/HoerTech-gGmbH/openMHA
+
 [3] https://community.amd.com/thread/215773
-
-# TODO
-Extend logs:
-* Temperatures
-* CPU usage
-* I/O wait
-* Memory usage
-
