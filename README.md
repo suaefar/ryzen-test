@@ -1,5 +1,5 @@
 # ryzen-test
-Script to reproduce randomly crashing processes under load on AMD Ryzen processors on _Ubuntu_ 17.04.
+Script to reproduce randomly crashing processes under load on AMD Ryzen processors on _Ubuntu 17.04_(!).
 
 # Try it
 Run
@@ -7,6 +7,12 @@ Run
 > ./kill-ryzen.sh
 
 and watch the output.
+
+# Update/revert: The codebase is frozen
+As I do not have faulty Ryzen CPUs anymore to test the script with new versions of the GCC software package, other distributions, etc...
+and because the main goal is to reproducibly trigger the bug: I will not accept _any_ changes to the code!
+
+To get as close as possible to the conditions that I had when testing my CPUs, you should run the script on a Ubuntu 17.04. live system, e.g., from a USB drive WITHOUT ANY UPDATES. This code will serve as a reference. You can fork it and I will happily add links to derived versions here.
 
 # Method
 This script will download GCC sources (version 7.1) and build GCC in parallel loops on a compressed ramdisk.
