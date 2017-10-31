@@ -19,13 +19,11 @@ fi
 
 echo "Install required packages"
 if which apt-get &>/dev/null; then
-  sudo apt-get install build-essential
+ sudo apt-get install build-essential
 elif which dnf &>/dev/null; then
-  sudo dnf install -y @development-tools
-elif which pacman &>/dev/null; then
-  sudo pacman -S --needed base-devel
+ sudo dnf install -y @development-tools
 else
-  exit 1
+ exit 1
 fi
 
 if $USE_RAMDISK; then
