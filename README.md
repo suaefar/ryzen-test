@@ -4,7 +4,9 @@ Script to reproduce randomly crashing processes under load on AMD Ryzen processo
 # Try it
 Run
 
-> ./kill-ryzen.sh
+```
+./kill-ryzen.sh
+```
 
 and watch the output.
 
@@ -36,12 +38,16 @@ Alternatively, smaller software packages could be tried (suggestions welcome).
 
 You can also try to run fewer loops but allow them to use more threads, e.g., 8 loops with 2 threads each.
 
-> ./kill-ryzen.sh 8 2
+```
+./kill-ryzen.sh 8 2
+```
 
 However, with only 16Gb RAM, this configuration might still run out of memory.
 4 loops with 4 threads each is a safe choice on machines with 16Gb RAM.
 
-> ./kill-ryzen.sh 4 4
+```
+/kill-ryzen.sh 4 4
+```
 
 # Update on my experience (suaefar)
 I wrote this script to reproducibly show that there was a severe problem with my early (adopted) Ryzen processor.
@@ -59,3 +65,14 @@ I have not experienced a single segfault until now (2017-10-31).
 [2] https://github.com/HoerTech-gGmbH/openMHA
 
 [3] https://community.amd.com/thread/215773
+
+
+# Small update for Arch Linux / Ryzen 2000 series CPUs (daniel451)
+Ubuntu 17.04 is discontinued and Ryzen 2000 series CPUs do not seem to work without adjustments. Same goes for Arch Linux. I have simply substituted gcc7.1 with gcc8.1 and manual dependency installation. This way the script can be run with gcc8.1. Unless Ubuntu 17.04 is not working for you it is *not* recommended to use the updated version for the sake of reproducibility.
+
+To run the updated version:
+
+```
+cd arch-linux
+./kill-ryzen.sh
+```
